@@ -27,7 +27,6 @@ fn op_play(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op 
     let fut = async move {
         let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
         std::thread::spawn(move || {
-            // call type_string
             let (_stream, handle) = rodio::OutputStream::try_default().unwrap();
             let sink = rodio::Sink::try_new(&handle).unwrap();
 

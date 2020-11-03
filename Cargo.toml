@@ -1,5 +1,5 @@
 [package]
-name = "deno-audio"
+name = "deno_audio"
 version = "0.1.0"
 authors = ["divy-work <dj.srivastava23@gmail.com>"]
 edition = "2018"
@@ -14,4 +14,4 @@ rodio = "0.12.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 futures = "0.3.4"
-deno_core = "0.66.0"
+deno_core = "0.61.0"

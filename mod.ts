@@ -1,1 +1,1 @@
-export { play } from "./plugin.ts";
+export { play } from "./op.ts";

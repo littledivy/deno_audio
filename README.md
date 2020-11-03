@@ -1,5 +1,8 @@
 <br />
 <p align="center">
+  <a href="https://github.com/littledivy/deno_audio">
+    <img src="./icon.webp" alt="deno_audio logo" height="240">
+  </a>
   <h3 align="center">deno_audio</h3>
 
   <p align="center">
@@ -21,7 +24,7 @@
 ## Example
 
 ```typescript
-import { play } from "https://deno.land/audio@0.1.0/mod.ts";
+import { play } from "https://deno.land/x/audio@0.1.0/mod.ts";
 
 // supports mp3, wav, vorbis, flac
 await play("music.mp3");
@@ -51,5 +54,7 @@ $ deno run --unstable -A example.ts
 Pull request, issues and feedback are very welcome. Code style is formatted with `deno fmt` and commit messages are done following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
 
 ## Copyright
+
+Logo by [@carazmatic](https://picsart.com/i/284157719013211) at picsart.com (cute, isn't it?)
 
 deno_audio is licensed under the MIT license. Please see the [LICENSE](LICENSE) file.

@@ -1,16 +1,6 @@
 import filename from "./detect.ts";
 import { prepare } from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
-
-// @ts-ignore
-export const core = Deno.core as {
-    ops: () => { [key: string]: number };
-    setAsyncHandler(rid: number, handler: (response: Uint8Array) => void): void;
-    dispatch(
-      rid: number,
-      msg?: any,
-      buf?: ArrayBufferView,
-    ): Uint8Array | undefined;
-  };
+import { core } from "./core_type.ts";
 
 const { filenameBase, pluginBase } = {
   "filenameBase": "deno_audio",
@@ -21,10 +11,6 @@ const { filenameBase, pluginBase } = {
 const isDev = Deno.env.get("DEV");
 
 if (isDev) {
-  // This will be checked against open resources after Plugin.close()
-  // in runTestClose() below.
-  const resourcesPre = Deno.resources();
-
   const rid = Deno.openPlugin("./target/debug/" + filename(filenameBase));
 } else {
   // logger.info(`Downloading latest Autopilot release from Github`);
@@ -40,23 +26,20 @@ if (isDev) {
 
 
 const {
-    play,
+    play: op_play,
 } = core.ops();
   
 const textDecoder = new TextDecoder();
 const decoder = new TextDecoder();
 
 
-export async function play_audio(arg: string) {
+export async function play(file: string) {
     const encoder = new TextEncoder();
-    const view = encoder.encode(arg);
+    const view = encoder.encode(file);
     return new Promise((resolve, reject) => {
-      core.setAsyncHandler(play, (bytes) => {
+      core.setAsyncHandler(op_play, (bytes) => {
         resolve(textDecoder.decode(bytes));
       });
-      core.dispatch(play, view);
+      core.dispatch(op_play, view);
     });
 }
-
-await play_audio("music.mp3");
-

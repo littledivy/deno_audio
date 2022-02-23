@@ -18,7 +18,11 @@ function readPointer(v: any): Uint8Array {
 }
 const opts = {
   name: "deno_audio",
-  url: (new URL("../target/release", import.meta.url)).toString(),
+  url:
+    (new URL(
+      "https://github.com/littledivy/deno_audio/releases/download/0.2.0",
+      import.meta.url,
+    )).toString(),
   policy: undefined,
 }
 const _lib = await prepare(opts, {

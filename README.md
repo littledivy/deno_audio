@@ -5,16 +5,16 @@
   </a>
   <h3 align="center">deno_audio</h3>
 
-  <p align="center">
+<p align="center">
     Audio playback library for Deno.
  </p>
  <p align="center">
 
-  [![stars](https://img.shields.io/github/stars/littledivy/deno_audio)](https://github.com/divy-work/deno_audio/stargazers)
-  [![issues](https://img.shields.io/github/issues/littledivy/deno_audio)](https://github.com/divy-work/deno_audio/issues)
-  ![deno version](https://img.shields.io/badge/deno-1.5.1-success)
- 
- </p>
+[![stars](https://img.shields.io/github/stars/littledivy/deno_audio)](https://github.com/littledivy/deno_audio/stargazers)
+[![issues](https://img.shields.io/github/issues/littledivy/deno_audio)](https://github.com/littledivy/deno_audio/issues)
+![deno version](https://img.shields.io/badge/deno-1.19.0-success)
+
+</p>
 </p>
 
 <!-- TODO: will CPAL WASM really work on Deno?
@@ -24,7 +24,7 @@
 ## Example
 
 ```typescript
-import { play } from "https://deno.land/x/audio@0.1.0/mod.ts";
+import { play } from "https://deno.land/x/audio@0.2.0/mod.ts";
 
 // supports mp3, wav, vorbis, flac
 await play("music.mp3");
@@ -36,11 +36,13 @@ await play("music.mp3");
 
 - [deno](https://deno.land/)
 - [rust](https://www.rust-lang.org/)
+- [deno_bindgen](https://github.com/denoland/deno_bindgen)
 - libasound2-dev - `apt-get install libasound2-dev`
 
 ## Building
+
 ```bash
-$ cargo build
+$ deno_bindgen --release
 ```
 
 ## Example
@@ -51,10 +53,14 @@ $ deno run --unstable -A example.ts
 
 ### Contribution
 
-Pull request, issues and feedback are very welcome. Code style is formatted with `deno fmt` and commit messages are done following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
+Pull request, issues and feedback are very welcome. Code style is formatted with
+`deno fmt` and commit messages are done following
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
 
 ## Copyright
 
-Logo by [@carazmatic](https://picsart.com/i/284157719013211) at picsart.com (cute, isn't it?)
+Logo by [@carazmatic](https://picsart.com/i/284157719013211) at picsart.com
+(cute, isn't it?)
 
-deno_audio is licensed under the MIT license. Please see the [LICENSE](LICENSE) file.
+deno_audio is licensed under the MIT license. Please see the [LICENSE](LICENSE)
+file.

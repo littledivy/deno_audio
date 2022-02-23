@@ -1,1 +1,1 @@
-export { play } from "./op.ts";
+export { play } from "./bindings/bindings.ts";

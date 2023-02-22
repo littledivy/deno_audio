@@ -26,7 +26,7 @@ const opts = {
   policy: undefined,
 }
 const _lib = await prepare(opts, {
-  play: { parameters: ["pointer", "usize"], result: "void", nonblocking: true },
+  play: { parameters: ["buffer", "usize"], result: "void", nonblocking: true },
 })
 
 export function play(a0: string) {

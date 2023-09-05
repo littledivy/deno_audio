@@ -1,14 +1,16 @@
 // Auto-generated with deno_bindgen
-import { CachePolicy, prepare } from "https://deno.land/x/plug@0.5.1/plug.ts"
 function encode(v: string | Uint8Array): Uint8Array {
   if (typeof v !== "string") return v
   return new TextEncoder().encode(v)
 }
+
 function decode(v: Uint8Array): string {
   return new TextDecoder().decode(v)
 }
+
+// deno-lint-ignore no-explicit-any
 function readPointer(v: any): Uint8Array {
-  const ptr = new Deno.UnsafePointerView(v as Deno.UnsafePointer)
+  const ptr = new Deno.UnsafePointerView(v)
   const lengthBe = new Uint8Array(4)
   const view = new DataView(lengthBe.buffer)
   ptr.copyInto(lengthBe, 0)
@@ -16,22 +18,45 @@ function readPointer(v: any): Uint8Array {
   ptr.copyInto(buf, 4)
   return buf
 }
-const opts = {
-  name: "deno_audio",
-  url:
-    (new URL(
-      "https://github.com/littledivy/deno_audio/releases/download/0.2.0",
-      import.meta.url,
-    )).toString(),
-  policy: undefined,
+
+const url = new URL("../target/release", import.meta.url)
+
+let uri = url.pathname
+if (!uri.endsWith("/")) uri += "/"
+
+// https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya#parameters
+if (Deno.build.os === "windows") {
+  uri = uri.replace(/\//g, "\\")
+  // Remove leading slash
+  if (uri.startsWith("\\")) {
+    uri = uri.slice(1)
+  }
 }
-const _lib = await prepare(opts, {
-  play: { parameters: ["pointer", "usize"], result: "void", nonblocking: true },
-})
+
+const { symbols } = Deno.dlopen(
+  {
+    darwin: uri + "libdeno_audio.dylib",
+    windows: uri + "deno_audio.dll",
+    linux: uri + "libdeno_audio.so",
+    freebsd: uri + "libdeno_audio.so",
+    netbsd: uri + "libdeno_audio.so",
+    aix: uri + "libdeno_audio.so",
+    solaris: uri + "libdeno_audio.so",
+    illumos: uri + "libdeno_audio.so",
+  }[Deno.build.os],
+  {
+    play: {
+      parameters: ["buffer", "usize"],
+      result: "void",
+      nonblocking: true,
+    },
+  },
+)
 
 export function play(a0: string) {
   const a0_buf = encode(a0)
-  let rawResult = _lib.symbols.play(a0_buf, a0_buf.byteLength)
+
+  const rawResult = symbols.play(a0_buf, a0_buf.byteLength)
   const result = rawResult
   return result
 }
